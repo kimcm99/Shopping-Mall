@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.LikeDao">
+
+<!-- 좋아요 되있는지 찾기 -->
+<select id="findLike" parameterType="java.util.HashMap" resultType="like">
+	select * from Likes where fId=#{fId} and mEmail=#{mEmail}
+</select>
+
+<!--  좋아요 저장 : default가 N , 누른게 Y -->
+<insert id="insertLike" parameterType="like">
+	insert into Likes values(LIKES_SEQ.nextval, #{fId}, #{mEmail},'Y')
+</insert>
+
+<!--  좋아요 제거 or 다시 저장-->
+<update id="updateLike" parameterType="like">
+	update Likes set likeDrop=#{likeDrop} where fId=#{fId} and mEmail=#{mEmail}
+</update>
+
+<!-- 좋아요 갯수 -->
+<select id="countLike" parameterType="int" resultType="int">
+	select count(*) from Likes where fId=#{fId} and likeDrop = 'Y'
+</select>
+
+<!-- 좋아요를 누른 사용자의 email주소 구하기 -->
+<select id="getEmail" parameterType="int" resultType="like">
+	select * from Likes where fId=#{fId} and likeDrop = 'Y'
+</select>
+
+
+</mapper>

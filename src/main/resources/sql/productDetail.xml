@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.ProductDetailDao">
+
+	<!-- 상품 가져오기 -->
+	<select id="selectProduct" parameterType="String"
+		resultType="product">
+		select *
+		from product where pid=#{pid}
+	</select>
+
+	<!-- 리뷰 리스트 가져오기 -->
+	<select id="selectMemberReview" parameterType="String"
+		resultType="review">
+
+		select * from review where memail = #{memail}
+	</select>
+
+	<!-- 상품문의(askBoard) 리스트 가져오기 -->
+	<select id="asklist" parameterType="Map" resultType="askBoard">
+		SELECT * FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM AskBoard
+		WHERE askdrop = 'N' and pid = #{pid}
+		ORDER BY askreg DESC
+		) A
+		)
+		WHERE RN BETWEEN #{askpp.startRow} AND #{askpp.endRow}
+	</select>
+
+
+	<!-- 한명의 리뷰 가져오기 -->
+	<select id="selectReviewOne" resultType="review"
+		parameterType="Map">
+		SELECT * FROM review where memail = #{memail} and pid =
+		#{pid}
+	</select>
+
+	<!-- 리뷰 상세 페이지 -->
+	<select id="prselect" resultType="review" parameterType="int">
+		SELECT *
+		FROM review where rid = #{rid}
+	</select>
+
+	<!-- 리뷰 합계 -->
+	<select id="total" resultType="int" parameterType="String">
+		select count(*) from review where pid = #{pid}
+	</select>
+	
+	<!-- 문의 합계 -->
+	<select id="asktotal" resultType="int" parameterType="String">
+		select count(*) from askboard where pid = #{pid}
+	</select>
+	
+	<!-- 상세페이지 리뷰 리스트 뽑아오기 -->
+	<select id="list" resultType="review" parameterType="map">
+		select *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM ( SELECT *
+		FROM review where rdrop =
+		'N' and pid = #{pid}
+		ORDER BY rreg
+		desc) A
+		)
+		WHERE RN BETWEEN
+		#{reviewpp.startRow} AND
+		#{reviewpp.endRow}
+	</select>
+
+	<!-- 이메일로 주문 정보 받아오기 -->
+	<select id="selectOrders" resultType="orders"
+		parameterType="String">
+		select * from orders where memail = #{memail}
+	</select>
+
+
+
+	<!-- 리뷰 게시판 작성 -->
+	<insert id="reviewInsert" parameterType="review">
+		insert into review
+		values (
+		REAVIEW_SEQ.nextval,
+		#{memail}, #{oid}, #{pid},
+		#{rwriter},
+		#{rtitle},
+		#{rimage,jdbcType=VARCHAR}, sysdate, 0, 'N', #{rcontent}
+		)
+	</insert>
+	
+	<!-- 리뷰 작성할 시 pid 가져오기  -->
+	<select id="plist" parameterType="String" resultType="Map">
+		select * 
+		from orderdetail 
+		join orders 
+		on orderdetail.oid = orders.oid 
+		where memail = #{memail}
+	</select>
+
+	<!-- 리뷰 작성할 시 주문 내역 확인 -->
+	<select id="selectlist" resultType="orders" parameterType="String">
+		select * from orders where memail = #{mEmail}
+	</select>
+
+
+
+	<!-- 리뷰 업데이트 폼 -->
+	<update id="reviewupdate" parameterType="review">
+		update review
+		set rwriter=#{rwriter}, rtitle=#{rtitle}, rimage=#{rimage,jdbcType=VARCHAR},
+		rreg=sysdate, rcontent=#{rcontent} where rid = #{rid}
+	</update>
+
+	<!-- oid로 review정보 가져오기 -->
+	<select id="rcheck" resultType="review" parameterType="int">
+		select *
+		from review where oid = #{oid}
+	</select>
+
+
+
+
+</mapper>

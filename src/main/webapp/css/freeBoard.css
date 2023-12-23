@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+/*자유게시판 목록 css시작 */
+/*iframe css*/
+.div_iframe {
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+/*자유게시판 table css*/
+.table_community {
+	width: 80%;
+	margin: auto;
+	border-collapse: collapse;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 자유게시판 th */
+.table_community th {
+	background-color: #333;
+	color: #fff;
+	padding: 15px;
+	border: 1px solid #555;
+}
+
+/* 자유게시판 td*/
+.table_community td {
+	padding: 15px;
+	text-align: center;
+	border: 1px solid #ddd; /* 셀 테두리 선 스타일 추가 */
+}
+
+/* 자유게시판 행 호버 효과 스타일 */
+.table_community tr:hover {
+	background-color: #ddd;
+}
+
+/* 자유게시판 첫 번째 행 배경색 스타일 */
+.table_community tr:first-child {
+	background-color: #your_color; /* 첫 번째 행에 원하는 색상을 지정하세요 */
+}
+
+/* 자유게시판 나머지 행 배경색 스타일 */
+.table_community tr:not(:first-child) {
+	background-color: #fff; /* 나머지 행은 흰색 배경 */
+}
+
+/*자유게시판 제목*/
+.table_community caption {
+	font-size: 20px; /* 원하는 caption의 글자 크기로 조절 */
+	color: #333; /* 원하는 글자색으로 조절 */
+	font-weight: bold; /* 글자를 진하게 설정 */
+	padding-top: 20px; /* 상단에 여백(패딩) 추가 */
+	padding-bottom: 40px; /* 원하는 간격(px 또는 다른 단위로 설정) */
+	padding-right: 100px; /* 원하는 만큼 왼쪽으로 이동 */
+	/* 추가적인 스타일링을 원하는대로 추가할 수 있습니다. */
+}
+
+/* 자유게시판 페이징 div */
+.div_feeboard_paging {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+}
+
+.div_feeboard_paging li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.div_feeboard_paging a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.div_feeboard_paging a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/*자유게시판 버튼 div*/
+.div_boardlist_button{
+	text-align: center;
+}
+.boardlist_button {
+	flex: 0.3;
+/* 	margin-left: 100px; 오른쪽으로 10px만큼 이동 */
+	padding: 8px 14px;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	background-color: #000000;
+	color: #ffffff;
+	border: 2px solid #000000;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	/*margin-right: 10%; /* 오른쪽 여백을 부모 요소의 크기에 대한 퍼센트로 조절 */
+	margin-bottom: 10%; /* 아래쪽 여백을 부모 요소의 크기에 대한 퍼센트로 조절 */
+	bottom: -30%; /* 아래로 10% 이동 */
+}
+
+.boardlist_button:hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+
+/*자유게시판 목록 css끝 */
+
+
+
+
+

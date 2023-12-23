@@ -1,0 +1,91 @@
+.container_main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 90vh;
+	width: 70%;
+	margin: 0 auto;
+	padding: 40px;
+	border-radius: 12px;
+	background: linear-gradient(to right, #2c3e50, #4a235a);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container_main h1 {
+	color: #fff;
+	font-size: 40px;
+	font-weight: bold;
+	margin-bottom: 50px;
+	margin-top: 0; /* 추가된 부분 */
+}
+
+.container_main table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.container_main th {
+	background-color: #bdc3c7; /* 파스텔 그레이 */
+	color: #333;
+	font-weight: bold;
+	text-align: center;
+	padding: 12px;
+	font-size: 25px;
+}
+
+.container_main td {
+	background-color: #ecf0f1; /* 파스텔 블루 그레이 */
+	color: #333;
+	padding: 12px;
+	font-size: 25px;
+}
+
+.container_main th:hover {
+	background-color: #34495e; /* 호버 시 배경색 변경 */
+	color: #fff; /* 호버 시 글자색 변경 */
+}
+
+.container_main td:hover {
+	background-color: #d5dbdb; /* 호버 시 배경색 변경 */
+	color: #333; /* 호버 시 글자색 변경 */
+}
+
+.container_main input[type="text"], .container_main textarea {
+	width: calc(100% - 20px);
+	padding: 5px;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 25px;
+	color: #555;
+	transition: transform 0.3s ease-in-out;
+}
+
+.container_main input[type="text"]:hover, .container_main textarea:hover
+	{
+	transform: scale(1.05);
+}
+
+.container_main button {
+	padding: 12px 24px;
+	margin: 8px;
+	cursor: pointer;
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	font-size: 16px;
+	font-weight: bold;
+	text-transform: uppercase;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease-in-out;
+	background-color: #000;
+	color: #fff;
+	border: none;
+}
+
+.container_main button:hover {
+	transform: scale(1.05);
+}

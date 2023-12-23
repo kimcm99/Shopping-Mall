@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+}
+
+.div_freeBoardDetail {
+	width: 55%;
+	margin: 20px auto;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table_freeBoardDetail {
+	width: 80%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+.table_freeBoardDetail td {
+	padding: 30px;
+	border-bottom: 1px solid #ddd;
+}
+
+h1, h2 {
+	color: #333;
+}
+
+.div_boardform_button {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.boardform_button {
+	padding: 10px;
+	margin: 0 5px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.div_reply {
+	margin-top: 20px;
+	text-align: center;
+}
+
+form {
+	margin-bottom: 20px;
+}
+
+textarea {
+	width: 40%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+/*댓글 버튼*/
+.button_replyok {
+	padding: 10px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+
+/*댓글 목록 버튼 */
+.edit1 {
+		padding: 10px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	
+}

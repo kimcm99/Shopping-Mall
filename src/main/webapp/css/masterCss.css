@@ -1,0 +1,352 @@
+@charset "UTF-8";
+
+/* 이미지 확대 축소 */
+/* CSS */
+.text-on-image {
+	display: none;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	color: white;
+	font-size: 16px;
+}
+
+.enlarged {
+	width: 500px !important;
+	height: 500px !important;
+}
+/* 공통 스타일 */
+body {
+	background-color: black;
+	color: white;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	min-height: 100vh;
+}
+
+.container {
+	width: 80%;
+	margin: auto;
+	position: relative;
+	padding-right: 200px;
+}
+
+.container_2 {
+	width: 75%;
+	margin: auto;
+	position: relative;
+	padding-right: 200px;
+	height: 50%;
+}
+
+table {
+	table-layout: fixed; /* 셀 너비를 균일하게 조절 */
+	width: 100%;
+	border-collapse: collapse; /* 테두리 모양 설정 */
+	background-color: #333;
+	color: white;
+	border: 2px solid gray;
+	/* 	margin-bottom: 0; 테이블과 위쪽 여백 제거 */
+}
+
+.container .fancy_table {
+	margin-top: 40px;
+	border-collapse: collapse;
+	background-color: #222;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 100%;
+}
+
+.container .fancy_table td {
+	padding: 1px;
+	font-family: 'Roboto', sans-serif;
+	color: skyblue;
+	border: 1px solid transparent;
+	text-align: center;
+	font-size: 30px;
+}
+
+.container .fancy_table th {
+	padding: 1px;
+	font-family: 'Roboto', sans-serif;
+	border: 1px solid transparent;
+	background-color: #002266; /* 어두운 파란색 */
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: ivory; /* 검정색 */
+	font-size: 25px;
+	border: 1px solid transparent;
+	text-align: center;
+}
+
+.container .fancy_table textarea {
+	/* 		width: calc(100% - 10px); */
+	/* 		height: 100px; */
+	padding: 30px;
+	font-family: 'Noto Sans', sans-serif;
+	border: none;
+	border-radius: 8px;
+	background-color: black;
+	color: skyblue;
+	box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.2);
+	width: 80%;
+	max-width: 90vw; /* 뷰포트 너비의 90%까지 허용 */
+	font-size: 25px;
+}
+
+.container .fancy_table td textarea {
+	width: 100%; /* 너비를 100%로 설정하여 부모 <td>의 너비에 맞춤 */
+	height: 100%; /* 높이를 100%로 설정하여 부모 <td>의 높이에 맞춤 */
+	box-sizing: border-box; /* padding과 border를 포함한 크기로 설정 */
+}
+
+.container .fancy_table th.first-column {
+	/* 첫 번째 컬럼에 대한 스타일 지정 */
+	/* 원하는 너비 값으로 조절 */
+	width: 100px; /* 예시로 100px로 설정 */
+	/* 그 외 스타일은 기존과 동일하게 유지 */
+	padding: 5px;
+	font-family: 'Roboto', sans-serif;
+	border: 1px solid transparent;
+	background-color: #002266; /* 어두운 파란색 */
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: ivory; /* 검정색 */
+	font-size: 20px;
+	text-align: center;
+}
+
+.nav {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	width: 100px; /* 네비게이션의 폭을 조정합니다. */
+	background-image: linear-gradient(to bottom, #333, #444);
+	/* 세로로 그라데이션 배경 적용 */
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	/* 세로 방향으로 배치하기 위해 flex-direction을 column으로 설정합니다. */
+	justify-content: center; /* 세로 중앙 정렬 */
+	align-items: flex-end; /* 가로로 오른쪽 정렬 */
+}
+
+.nav a {
+	color: white;
+	text-decoration: none;
+	padding: 8px 12px;
+	margin-left: 10px;
+	background-color: #808080;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	display: inline-block; /* 요소를 인라인 블록 요소로 설정하여 가로로 배열되도록 함 */
+}
+
+.nav a:hover {
+	background-color: #606060;
+}
+
+.nav a:last-child {
+	margin-right: 0; /* 가장 마지막 버튼에 오른쪽 여백 제거 */
+}
+
+/* 하단 버튼 스타일 수정 */
+.bottom-buttons {
+	overflow-x: auto; /* 가로 스크롤을 추가하여 넘치는 부분을 스크롤로 처리 */
+	white-space: nowrap; /* 요소들을 한 줄에 나열하도록 설정 */
+	position: fixed; /* 페이지 하단에 고정 */
+	bottom: 0;
+	left: 0;
+	width: calc(100% - 20px); /* 오른쪽 여백 추가 */
+	background-color: black;
+	display: flex;
+	justify-content: flex-end;
+	padding: 10px;
+	margin-right: 20px; /* 오른쪽 여백 추가 */
+}
+
+.bottom-buttons a {
+	color: white;
+	text-decoration: none;
+	padding: 8px 12px;
+	margin-left: 10px;
+	background-color: #808080;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	display: inline-block; /* 요소를 인라인 블록 요소로 설정하여 가로로 배열되도록 함 */
+}
+
+.bottom-buttons a:hover {
+	background-color: #606060;
+}
+
+.bottom-buttons a:last-child {
+	margin-right: 0; /* 가장 마지막 버튼에 오른쪽 여백 제거 */
+}
+/* 하단 버튼 스타일 끝 */
+.h1_caption {
+	font-size: 70px;
+	margin-bottom: 10px;
+	color: #87CEEB;
+	text-align: center; /* 텍스트를 중앙 정렬합니다 */
+}
+
+caption {
+	font-size: 1.8em; /* 변경: 글씨 크기를 더 크게 조정 */
+	margin-bottom: 10px;
+	color: #87CEEB;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 5px; /* 변경: 셀 내부 여백을 늘림 */
+	text-align: center;
+	flex: 1;
+	width: calc(100%/ 9); /* 총 9개의 열이 있으므로 너비를 균등하게 조절 */
+	word-wrap: break-word; /* 긴 텍스트가 있을 경우 줄 바꿈 처리 */
+}
+
+td button {
+	width: auto; /* 변경: 버튼 크기를 텍스트에 맞게 자동 조절 */
+	padding: 8px; /* 변경: 버튼 내부 여백을 늘림 */
+	box-sizing: border-box;
+}
+
+tr {
+	transition: background-color 2s, color 2s;
+}
+
+tr:hover {
+	background-color: #132c6f;
+	color: white;
+}
+
+button {
+	background-color: #808080;
+	color: white;
+	padding: 8px 12px; /* 변경: 버튼 내부 여백을 늘림 */
+	border: 1px solid #ddd;
+	cursor: pointer;
+	transition: background-color 2s;
+}
+
+button:hover {
+	background-color: #606060;
+}
+
+.selected-five {
+	background-color: black;
+	color: skyblue;
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid white;
+	cursor: pointer;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: 100%;
+	text-font: align;
+}
+
+/* 셀렉트 박스 스타일 */
+.select-Dtype {
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid white;
+	cursor: pointer;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	colro: black;
+}
+
+.text-input {
+	background-color: black;
+	color: skyblue;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+}
+
+input[type="text"] {
+	width: 100%; /* 부모 요소(여기서는 td)의 너비에 맞게 설정 */
+	max-width: 200px; /* 최대 너비 설정 */
+	box-sizing: border-box; /* 패딩과 테두리 포함하여 전체 너비 설정 */
+	background-color: black;
+	color: skyblue;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+}
+
+textarea {
+	width: 100%; /* 부모 요소(여기서는 td)의 너비에 맞게 설정 */
+	max-width: 200px; /* 최대 너비 설정 */
+	box-sizing: border-box; /* 패딩과 테두리 포함하여 전체 너비 설정 */
+	background-color: black;
+	color: skyblue;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+}
+
+.putsub {
+	background-color: black;
+	color: skyblue;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+	/* 다른 원하는 스타일 추가 */
+}
+
+.putsub2 {
+	background-color: black;
+	color: skyblue;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: background-color 2s;
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid white;
+	font-size: 15px; /* 다른 원하는 스타일 추가 */
+	width: 100%
+}
+
+.pageFont1 {
+	display: block;
+	text-align: center;
+	margin: 50px;
+	font-size: 35px;
+	"
+}
+
+input.phone {
+	width: 80px; /* 자릿수가 3개인 전화번호 필드의 너비를 30px로 설정했습니다. */
+}
+
+.info-message {
+	text-align: left;
+	color: gray;
+	/* 	margin-left: 100px; */
+}

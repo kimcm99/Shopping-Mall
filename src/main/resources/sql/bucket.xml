@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.BucketDao">
+
+	<!-- 세션을 통해 장바구니 전체리스트 구하기 -->
+	<select id="selectBucketList" parameterType="string"
+		resultType="bucket">
+		select * from bucket where memail=#{memail} and bdrop='N'
+		
+	</select>
+
+	<!-- 세션을 통해 장바구니 전체리스트 구하기 -->
+	<select id="selectAllBucketList" parameterType="list"
+		resultType="bucket">
+		select * from bucket where bdrop='N' and bid in
+		<foreach item="bid" collection="list" open="(" separator=","
+			close=")">
+			#{bid}
+		</foreach>
+	</select>
+
+
+	<!-- 상품디테일 폼에서 장바구니 추가를 누를경우 장바구니 인서트 -->
+	<insert id="InsertCart" parameterType="map">
+		insert into bucket
+		values(bucket_seq.nextval,#{memail},#{product.pid},
+		#{product.pname},#{product.pimage},#{quantity},#{product.psize},#{product.pcolor},#{product.pprice},'N')
+	</insert>
+
+	<!-- 체크박스 1개 넘어온 경우 -->
+	<update id="deleteCartOne" parameterType="int">
+		update bucket set
+		bdrop='Y' where bid=#{bid}
+	</update>
+
+	<!-- 배열로 체크박스가 넘어온 경우 -->
+	<update id="deleteCartList" parameterType="list">
+		update bucket set bdrop='Y' where bid in
+		<foreach item="bid" collection="list" open="(" separator=","
+			close=")">
+			#{bid}
+		</foreach>
+	</update>
+
+	<!-- 장바구니에 이미 pid가 일치하는 상품이 있을경우 -->
+	<select id="selectBucket" parameterType="map"
+		resultType="bucket">
+		select * from bucket where memail=#{memail} and pid=#{pid}
+	</select>
+
+	<!-- 장바구니에 이미 pid가 일치하는 상품이 있을경우 수량 업데이트 -->
+	<update id="updateCart" parameterType="map">
+		update bucket set bcount=bcount+#{quantity} where memail=#{memail} and
+		pid=#{pid}
+	</update>
+
+	<!-- 장바구니에 이미 pid가 일치하는 상품이 있고 삭제됐던 경우 -->
+	<update id="updateBdrop" parameterType="map">
+		update bucket set
+		bcount=bcount*0+#{quantity}, bdrop='N' where memail=#{memail} and
+		pid=#{pid}
+	</update>
+
+	<select id="selectBucketOne" parameterType="String"
+		resultType="bucket">
+		select * from bucket where bid = #{bid}
+	</select>
+	
+	<select id="OneBucket" parameterType="int"
+		resultType="bucket">
+		select * from bucket where bid = #{bid}
+	</select>
+</mapper>
+

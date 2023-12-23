@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="member" type="boss.model.Member" />
+		<typeAlias alias="product" type="boss.model.Product" />
+		<typeAlias alias="review" type="boss.model.Review" />
+		<typeAlias alias="orders" type="boss.model.Orders" />
+		<typeAlias alias="orderDetail" type="boss.model.OrderDetail" />
+		<typeAlias alias="category" type="boss.model.Category" />
+		<typeAlias alias="pagePgm" type="boss.common.PagePgm" />
+		<!-- <typeAlias alias="category" type="boss.model.Category" /> -->
+		<typeAlias alias="bucket" type="boss.model.Bucket" />
+		<typeAlias alias="amount" type="boss.model.Amount" />
+		<typeAlias alias="search" type="boss.common.Search" />
+
+		<typeAlias alias="bucket" type="boss.model.Bucket" />
+		<typeAlias alias="amount" type="boss.model.Amount" />
+		<typeAlias alias="search" type="boss.common.Search" />
+		<typeAlias alias="qnaBoard" type="boss.model.QnaBoard" />
+		<typeAlias alias="qnaReply" type="boss.model.QnaReply" />
+		<typeAlias alias="freeboard" type="boss.model.FreeBoard" />
+		<typeAlias alias="freereply" type="boss.model.FreeReply" />
+		<typeAlias alias="like" type="boss.model.Likes" />
+		<typeAlias alias="masterNotice" type="boss.model.MasterNotice" />
+		<typeAlias alias="mainImage" type="boss.model.MainImage" />
+		<typeAlias alias="report" type="boss.model.Report" />
+		<typeAlias alias="askboard" type="boss.model.AskBoard" />
+		<typeAlias alias="askreply" type="boss.model.AskReply" />
+
+    
+
+		<!-- <typeAlias alias="search" type="boss.common.Search" /> -->
+		<!-- <typeAlias alias="pagePgm" type="boss.common.PagePgm" /> -->
+		<!-- <typeAlias alias="master" type="boss.master.Master" /> -->
+		<!-- <typeAlias alias="category" type="boss.model.Category" /> -->
+	</typeAliases>
+
+</configuration>

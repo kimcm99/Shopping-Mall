@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa;
+}
+
+.container {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.container2 {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.container3 {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.container4 {
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.container h3 {
+	text-align: center;
+	color: #434343;
+}
+
+.container table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.container th, td {
+	border: 1px solid #dee2e6;
+	padding: 12px;
+	text-align: center;
+}
+
+.container th {
+	background-color: #808080;
+	color: #ffffff;
+}
+
+.container img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.container2 h3 {
+	text-align: center;
+	color: #434343;
+}
+
+.container2 table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.container2 th, .container2 td {
+	border: 1px solid #dee2e6;
+	padding: 12px;
+	text-align: left;
+
+}
+
+.container2 th {
+	background-color: #909090;
+	color: #ffffff;
+}
+
+.container2 .btn_div {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.container2 button {
+	background-color: #585858;
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-align: center;
+	font-size: 13px;
+	margin: 4px 2px;
+	opacity: 0.6;
+	transition: 0.3s;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	width: 150px;
+	float: center;
+	border-radius: 4px;
+}
+
+.container2 button:hover {
+	opacity: 1
+}
+
+.container3 h3 {
+	text-align: center;
+	color: #434343;
+}
+
+.container3 table {
+	width: 50%;
+	margin-top: 10px;
+}
+
+.container3 td, .container3 th {
+	padding: 12px;
+}
+
+.container3 th {
+	background-color: #909090;
+	color: #ffffff;
+}
+
+.container3 td {
+	text-align: center;
+}
+
+.container3 .final_tr {
+	border-top: 3px solid #dddddd;
+}
+
+/* Additional styles for container4 */
+.container4 h3 {
+	text-align: center;
+	color: #434343;
+}
+
+.container4 table {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.container4 td {
+	padding: 12px;
+}
+
+.container4 .pay_info_td {
+	text-align: left;
+}

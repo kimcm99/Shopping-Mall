@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterReportDao">
+
+	<!-- 총신고글 갯수 -->
+	<select id="total" resultType="int">
+		select count(*) from
+		report
+	</select>
+
+	<!-- 페이징 처리된 신고 리스트 -->
+	<select id="list" parameterType="pagePgm" resultType="report">
+		select *
+		from (select rownum rnum, report.*
+		from (select *
+		from report order by
+		reportdrop asc, reportanswer asc, reportreg desc, reportreply desc)
+		report)
+		where rnum
+		between
+		#{startRow} and #{endRow}
+	</select>
+
+	<!-- 신고 게시글 상세정보 구하기 -->
+	<select id="selectOne" parameterType="String"
+		resultType="report">
+		select * from report where reportid=#{reportid}
+	</select>
+
+	<!-- qna 답글 저장 -->
+	<!-- <insert id="insertReply" parameterType="Map"> -->
+	<!-- insert into qnareply -->
+	<!-- values(qnareply_seq.nextval,#{memail},#{id},#{qrcontent},sysdate,default) -->
+	<!-- </insert> -->
+
+	<!-- qna 1개 댓글 구하기 -->
+	<!-- <select id="selectReplyOne" parameterType="int" -->
+	<!-- resultType="qnaReply"> -->
+	<!-- select * from qnareply where qid=#{id} -->
+	<!-- </select> -->
+
+	<!-- 신고 글 삭제('Y') 업데이트 -->
+	<update id="deleteReport" parameterType="java.util.List">
+		update report set
+		reportdrop =
+		case reportdrop
+		when 'N' then 'Y'
+		when 'Y'
+		then
+		'N'
+		else reportdrop
+		end
+		where reportid in
+		<foreach item="reportid" collection="list" open="("
+			separator="," close=")">
+			#{reportid}
+		</foreach>
+	</update>
+
+	<!-- qna 답글 수정 하기 -->
+	<update id="update" parameterType="report">
+		update report set
+		REPORTREPLY =
+		#{reportreply}, REPORTREPLYREG = sysdate, REPORTANSWER =
+		'Y'
+		where
+		reportid = #{reportid}
+	</update>
+
+
+
+	<!-- qna게시글 검색 목록 구하기 -->
+	<select id="searchReportList" parameterType="search"
+		resultType="report">
+
+		select * from report where
+		<choose>
+
+
+			<when test="searchtype == 'memail'">
+				memail like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'reportid'">
+				reportid like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'reporttitle'">
+				qnatitle like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'reportanswer'">
+				reportanswer like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchtype == 'reportdrop'">
+				reportdrop like '%' || #{keyword} || '%'
+			</when>
+			<when test="searchtype == 'reporttype'">
+				reporttype like '%' || #{keyword} || '%'
+			</when>
+		</choose>
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

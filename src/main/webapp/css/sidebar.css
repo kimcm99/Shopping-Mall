@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+@media only screen and (max-width: 600px) {
+	ul {
+		width: 100%;
+		float: none;
+	}
+	.content_noorderlist, .content_noreview, .content_noQnA {
+		width: 100%;
+		margin-right: 0;
+	}
+	.reviewtable, .ordertable {
+		width: 100%;
+	}
+}
+
+ul {
+	list-style-type: none;
+	background-color: #ccc;
+	width: 25%;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	overflow-y: auto;
+	float: left; /* 왼쪽으로 부유시킴 */
+}
+
+li a {
+	text-decoration: none;
+	display: block;
+	color: #000;
+	padding: 8px 15px 8px 15px;
+	font-weight: bold;
+}
+
+li a.mypage_sidebar {
+	background-color: black;
+	color: #fff;
+}
+
+li a:hover:not(.job) {
+	background-color: #333;
+	color: #fff;
+}
+
+.content {
+	padding: 16px;
+	overflow-y: auto;
+	box-sizing: border-box;
+	margin-left: 25%; /* 사이드바 너비만큼 여백을 주기 위해 조절 */
+}
+
+.content_noorderlist, .content_noreview, .content_noQnA, .content_noask, .content_noreport {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	margin-top: 20px;
+	margin-right: 100px;
+	padding: 16px;
+	max-height: 70vh;
+	overflow-y: auto;
+	width: 40%;
+	height: 300px;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	margin-left: 50px;
+}
+
+/* 주문 테이블 */
+.reviewtable, .ordertable {
+	border-collapse: collapse;
+	width: calc(100% - 25%); /* 페이지 전체 너비에서 사이드바의 너비를 뺀 값으로 지정 */
+	margin-bottom: 200px;
+	margin-left: 50px;
+}
+
+.reviewtable th, .reviewtable td, .ordertable th, .ordertable td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+.reviewtable th, .ordertable th {
+	background-color: #333;
+	color: white;
+}
+
+.reviewtable tr:nth-child(even), .ordertable tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.reviewtable tr:hover, .ordertable tr:hover {
+	background-color: #ddd;
+}
+/* 여기 까지 주문 테이블 */
+.refund_btn , 
+.deleteReview_btn {
+	background-color: black;
+    color: white;
+    width: 100%; /* 버튼을 100%로 설정하여 테이블 셀과 일치시킵니다. */
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
+
+.refund_btn:hover ,
+.deleteReview_btn:hover{
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.container_review {
+    width: 100%;
+    margin: 0 auto; /* 가운데 정렬을 위해 auto를 사용합니다. */
+}

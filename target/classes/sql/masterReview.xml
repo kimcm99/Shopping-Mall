@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterReviewDao">
+
+	<!-- list로 for문돌려서 where절에 가변적 처리 -->
+	<delete id="delete" parameterType="java.util.List">
+		delete from review
+		where rid in
+		<foreach item="rid" collection="list" open="(" separator=","
+			close=")">
+			#{rid}
+		</foreach>
+	</delete>
+
+	<!-- 한명의 리뷰를 구해옴. -->
+	<select id="selectOne" resultType="review"
+		parameterType="string">
+		SELECT * FROM review where rid = #{rid}
+	</select>
+
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="list" resultType="review" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM review
+		ORDER BY rdrop ASC,rreg DESC
+		) A
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<!-- total구하기 -->
+	<select id="total" resultType="int">
+		SELECT COUNT(*) FROM review
+	</select>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteReview" parameterType="java.util.List">
+		update review set
+		rdrop =
+		case rdrop
+		when 'N' then 'Y'
+		when 'Y' then 'N'
+		else rdrop
+		end
+		where rid in
+		<foreach item="rid" collection="list" open="(" separator=","
+			close=")">
+			#{rid}
+		</foreach>
+	</update>
+
+	
+	<!-- qna게시글 검색 목록 구하기 -->
+	<select id="searchReviewList" parameterType="search" resultType="review">
+		
+		 select * from review where
+		  <choose>
+        <when test="searchtype == 'memail'">
+            memail like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'rwriter'">
+            rwriter like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'rid'">
+            rid like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'pid'">
+            pid like '%' || #{keyword} || '%'
+        </when>
+        
+    </choose>
+	</select>
+	<!-- ID기준으로 회원정보를 수정 -->
+<!-- 	<update id="update" parameterType="review"> -->
+<!-- 		UPDATE MEMBER SET -->
+<!-- 		mEmail=#{mEmail}, -->
+<!-- 		mPwd = #{mPwd}, mName = #{mName}, -->
+<!-- 		mPhone = #{mPhone}, -->
+<!-- 		mPost = #{mPost}, mAddress = #{mAddress}, -->
+<!-- 		mGrade = #{mGrade}, mReg = -->
+<!-- 		#{mReg}, mDrop = #{mDrop} -->
+<!-- 		where mEmail = #{mEmail} -->
+<!-- 	</update> -->
+</mapper>

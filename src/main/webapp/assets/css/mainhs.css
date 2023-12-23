@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.buttons_master {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25px; /* Adjust margin as needed */
+}
+
+.buttons_master button {
+	margin: 5px; /* Adjust margin as needed */
+	filter: grayscale(100%);
+	transition: filter 0.3s ease;
+	font-size: 14px;
+}
+
+.buttons_master button:hover {
+	filter: grayscale(0%);
+}
+
+
+/*메인 카테고리 상품 분류 div*/
+.category-links {
+    text-align: center;
+    margin: 20px; /* Adjust margin as needed */
+}
+
+.category-links {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align items vertically in the center */
+    gap: 10px; /* Adjust the gap (spacing) between links as needed */
+}
+
+.category-links a {
+    text-decoration: none;
+    color: #333; /* Adjust the color as needed */
+    font-weight: bold;
+    padding: 8px 12px; /* Adjust padding as needed */
+    border: 1px solid #333; /* Add border for a button-like appearance */
+    border-radius: 4px; /* Adjust border radius as needed */
+}
+

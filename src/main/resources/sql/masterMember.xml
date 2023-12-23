@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterMemberDao">
+
+	<!-- 한명의 회원정보를 구해옴. -->
+	<select id="selectOne" resultType="member"
+		parameterType="string">
+		SELECT * FROM MEMBER where mEmail = #{mEmail}
+	</select>
+
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="list" resultType="member" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM member
+		ORDER BY mDrop
+		ASC, mReg DESC
+		) A
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<!-- total구하기 -->
+	<select id="total" resultType="int">
+		SELECT COUNT(*) FROM member
+	</select>
+	<!-- ID기준으로 회원정보를 수정 -->
+	<update id="update" parameterType="member">
+		UPDATE MEMBER SET
+		mEmail=#{mEmail},
+		mPwd = #{mPwd}, mName = #{mName},
+		mPhone = #{mPhone},
+		mPost = #{mPost}, mAddress = #{mAddress},
+		mGrade = #{mGrade}, mReg =
+		#{mReg}, mDrop = #{mDrop}
+		where mEmail = #{mEmail}
+	</update>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteMember" parameterType="java.util.List">
+		update member set
+		mdrop =
+		case mdrop
+		when 'N' then 'Y'
+		when 'Y' then 'N'
+		else mdrop
+		end
+		where memail in
+		<foreach item="memail" collection="list" open="("
+			separator="," close=")">
+			#{memail}
+		</foreach>
+	</update>
+
+
+	<!-- 유형별 회원 리스트 검색 -->
+	<select id="searchMember" parameterType="search"
+		resultType="member">
+
+		select * from member where
+		<choose>
+			<when test="searchtype == 'mEmail'">
+				mEmail like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'mName'">
+				mName like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'mAddress'">
+				mAddress like '%' || #{keyword} || '%'
+			</when>
+
+			<when test="searchtype == 'mGrade'">
+				mGrade like '%' || #{keyword} || '%'
+			</when>
+
+		</choose>
+	</select>
+
+	<!-- pid를 기준으로 구매한 이력이 있는 회원 목록을 구해옴. -->
+	<select id="selectProductOfMember" parameterType="string"
+		resultType="product">
+		SELECT * 
+      FROM (select product.* from orders
+      JOIN  orderdetail ON
+      orders .oid = orderdetail.oid 
+      JOIN product ON orderdetail.pid =
+      product.pid where memail = #{id})
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

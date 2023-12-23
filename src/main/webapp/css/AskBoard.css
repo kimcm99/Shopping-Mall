@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+}
+
+.Ask_insert {
+	width: 50%;
+	margin: 50px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	color: #333;
+}
+
+.askinsert_table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.askinsert_table th, .askinsert_table td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: left;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.askinsert_table th {
+	background-color: #f2f2f2;
+}
+
+.input_box {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+	border: none;
+}
+
+textarea {
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+}
+
+.ask_insert_button {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.review_insert_button {
+	background-color: #000; /* 검은색으로 변경 */
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	
+	/* hover 전환 효과 */
+}
+
+
+/* 댓글 게시판 스타일 */
+.table_ar {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+}
+
+.table_ar caption {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.table_ar th, .table_ar td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table_ar th {
+    background-color: #f2f2f2;
+}
+
+.table_ar tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table_ar tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* 댓글 목록 스타일 수정 */
+.table_ar th, .table_ar td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* 글자 크기 조정 */
+}
+
+.table_ar th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333; /* 헤더 글자 색상 변경 */
+}
+
+
+

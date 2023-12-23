@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MemberDao">
+
+	<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER VALUES (#{mEmail}, #{mPwd}, #{mName}, #{mPhone}, 
+			#{mPost}, #{mAddress}, default, sysdate, default)
+	</insert>
+	
+	<!-- 네이버 회원 가입 -->
+	<insert id="insertNMember" parameterType="java.util.Map">
+		INSERT INTO MEMBER (mEmail, mPwd, mName, mPhone, mGrade, mReg, mDrop)
+ 	   VALUES (#{mEmail,jdbcType=VARCHAR}, #{mPwd}, #{mName}, #{mPhone}, default, sysdate, default)
+	</insert>
+	
+	<!-- 카카오 회원 가입 -->
+	<insert id="insertKMember" parameterType="Map">
+		INSERT INTO MEMBER (mEmail, mPwd, mName, mPhone, mGrade, mReg, mDrop)
+ 		   VALUES (#{mEmail,jdbcType=VARCHAR}, 0000, #{mName}, 01000000000, default, sysdate, default)
+	</insert>
+	
+	<!-- 1명의 정보 뽑기 ( 비번 비교 ) -->
+	<select id="selectOne" resultType="member" parameterType="string">
+		SELECT * FROM MEMBER where mEmail = #{mEmail} and mdrop = 'N'
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="member">
+		update member set mPhone = #{mPhone}, mPost = #{mPost}, mAddress = #{mAddress} where mEmail = #{mEmail}
+	</update>
+	
+	<!-- 회원 탈퇴 하기 -->
+	<update id="deleteMember">
+		update member set mdrop = 'Y' where mEmail = #{mEmail}
+	</update>
+
+</mapper>

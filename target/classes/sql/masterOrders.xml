@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterOrdersDao">
+
+	<!-- 한명의 주문정보를 구해옴. -->
+	<select id="selectOrders" resultType="orders"
+		parameterType="string">
+		SELECT * FROM Orders where oid = #{oid}
+	</select>
+
+	<!-- 한명의 주문정보를 구해옴. -->
+	<select id="selectOrderDetail" resultType="orderDetail"
+		parameterType="string">
+		SELECT * FROM OrderDetail where odid = #{odid}
+	</select>
+
+	<!-- 주문번호안에 pid목록들 -->
+	<select id="listProduct" parameterType="integer"
+		resultType="Map">
+		select *
+		from orderdetail join
+		orders using(oid)
+		join product
+		on orderdetail.pid = product.pid
+		where oid = #{oid}
+	</select>
+
+	<update id="updateStatus" parameterType="string">
+		update orderdetail set
+		odstatus = #{param2} where odid = #{param1}
+	</update>
+
+
+	<!-- 한명의 주문에 대한 여러 상세 주문을 구해옴. -->
+	<select id="odList" parameterType="string"
+		resultType="orderDetail">
+		select * from OrderDetail where oid=#{oid}
+	</select>
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="list" resultType="orders" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM orders
+		ORDER BY oreg DESC
+		) A
+		)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<!-- total구하기 -->
+	<select id="total" resultType="int">
+		SELECT COUNT(*) FROM orders
+	</select>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteOrders" parameterType="java.util.List">
+		update orders set
+		odrop =
+		case odrop
+		when 'N' then 'Y'
+		when 'Y' then 'N'
+		else odrop
+		end
+		where oid in
+		<foreach item="oid" collection="list" open="(" separator=","
+			close=")">
+			#{oid}
+		</foreach>
+	</update>
+
+
+	<!-- qna게시글 검색 목록 구하기 -->
+	<select id="searchOrdersList" parameterType="search" resultType="orders">
+		
+		 select * from orders where
+		  <choose>
+        <when test="searchtype == 'memail'">
+            memail like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'oname'">
+            oname like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'oid'">
+            oid like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'opost'">
+            opost like '%' || #{keyword} || '%'
+        </when>
+        
+    </choose>
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

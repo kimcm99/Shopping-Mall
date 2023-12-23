@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterQnaBoardDao">
+
+   <!-- 총상품 갯수 -->
+   <select id="totalQnaCount" resultType="int">
+      select count(*) from
+      qnaboard
+   </select>
+
+ 
+
+
+	<!-- 페이징 처리된 상품 리스트 -->
+	<select id="selectQnaBoardList" parameterType="pagePgm"
+		resultType="qnaBoard">
+		select *
+		from (select rownum rnum, qnaboard.*
+			  from (select *
+		            from qnaboard order by qnayn asc,qnareg desc) qnaboard)
+		where rnum between
+		#{startRow} and #{endRow}
+	</select>
+
+
+
+
+	<!-- qna 게시글 상세정보 구하기 -->
+	<select id="selectQnaDetail" parameterType="int"
+		resultType="qnaBoard">
+		select * from qnaBoard where qid=#{id}
+	</select>
+
+	<!-- qna 답글 저장 -->
+	<insert id="insertReply" parameterType="Map">
+		insert into qnareply
+		values(qnareply_seq.nextval,#{memail},#{id},#{qrcontent},sysdate,default)
+	</insert>
+
+	<!-- qna 1개 댓글 구하기 -->
+	<select id="selectReplyOne" parameterType="int"
+		resultType="qnaReply">
+		select * from qnareply where qid=#{id}
+	</select>
+
+	<!-- 상품 전체 삭제('Y') 업데이트 -->
+	<update id="deleteQna" parameterType="java.util.List">
+		update qnaboard set
+		qnadrop =
+		case qnadrop
+		when 'N' then 'Y'
+		when 'Y' then
+		'N'
+		else qnadrop
+		end
+		where qid in
+		<foreach item="qid" collection="list" open="(" separator=","
+			close=")">
+			#{qid}
+		</foreach>
+	</update>
+		
+	<!-- qnaBoard 답변 상태 'Y'변겅 -->	
+	<update id="updateQnaBoardReplyYn" parameterType="int">
+		update qnaboard set qnayn='Y' where qid=#{id}
+	</update>
+		
+	<!-- qna 답글 수정 하기 -->	
+	<update id="updateQnaReply" parameterType="map">
+		update qnareply set qrcontent=#{qrcontent} where qid=#{id}
+	</update>	
+	
+	<!-- qna 게시글 삭제('Y') 업데이트 하기 -->	
+	<update id="deleteQnaBoard" parameterType="int">
+		update qnaBoard set qnadrop='Y' where qid=#{id}
+	</update>	
+	
+	<!-- qna게시글 검색 목록 구하기 -->
+	<select id="searchQnaList" parameterType="search" resultType="qnaBoard">
+		
+		 select * from qnaboard where
+		  <choose>
+  
+
+        <when test="searchtype == 'memail'">
+            memail like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'qid'">
+            qid like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'qnatitle'">
+            qnatitle like '%' || #{keyword} || '%'
+        </when>
+        
+        <when test="searchtype == 'qnayn'">
+            qnayn like '%' || #{keyword} || '%'
+        </when>
+        
+    </choose>
+   </select>
+      
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

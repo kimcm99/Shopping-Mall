@@ -1,0 +1,92 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container_main {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* 추가된 부분 */
+}
+
+.container_left {
+   float: left;
+    width: 40%;
+    max-width: 200px;
+    border: 1px solid #000; /* 테두리 스타일 추가 */
+    padding: 10px; /* 내부 여백 추가 */
+    border-radius: 5px; /* 테두리 모서리를 둥글게 만듭니다. */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.member-mName,
+.member-grade {
+    color: #3498db;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.memberupdate_btn,
+.memberdrop_btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.memberupdate_btn:hover,
+.memberdrop_btn:hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.container_orders {
+    float: left;
+    width: 60%;
+    margin-left : 100px;
+}
+
+h1 {
+    color: #000;
+}
+
+.container_review {
+    float: right;
+    width: 50%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.toggle-image {
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+
+.text-on-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 14px;
+}

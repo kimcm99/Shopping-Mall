@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.OrdersDao">
+	
+	<insert id="insertOrders" parameterType="orders">
+		insert into orders values(orders_seq.nextval,#{memail},#{oname},#{ophone},#{opost},
+		#{oaddress},#{ototalprice},#{odelivery},#{omessage},sysdate)
+	</insert>
+	
+	<select id="selectOrdersOne" parameterType="string" resultType="orders">
+		select * from(select * from orders order by oid desc)
+		where memail=#{memail} and rownum = 1
+	</select>
+	
+	<insert id="insertOrderDetail" parameterType="map">
+		insert into orderdetail values(orderdetail_seq.nextval,#{oid},#{product.pid},#{product.cid},#{product.pname},
+		#{product.pcontent},#{product.pimage},#{amountCount},#{product.pcolor},#{product.psize},#{product.pprice},0)
+	</insert>
+	
+	<update id="updateProductCount" parameterType="map">
+		update amount set acount=acount-#{amountCount} where pid=#{pid}
+	</update>
+	
+</mapper>

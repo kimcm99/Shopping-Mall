@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MypageDao">
+
+	<!-- 내 주문내역 불러오기 -->
+	<select id="myoders" parameterType="String" resultType="orders">
+		select *
+		from orders where mEmail = #{mEmail}
+	</select>
+
+	<!-- 주문번호안에 pid목록들 -->
+	<select id="listProduct" parameterType="Map"
+		resultType="Map">
+		select *
+		from orderdetail
+		join orders
+		using (oid)
+		where mEmail = #{mEmail} and oid = #{oid}
+	</select>
+
+	<!-- order 객체 -->
+	<select id="myorders" parameterType="String" resultType="orders">
+		select *
+		from orders where mEmail = #{mEmail}
+	</select>
+
+
+	<!-- 내 리뷰 불러오기 -->
+	<select id="myreviews" parameterType="String"
+		resultType="review">
+		select * from review where mEmail = #{mEmail} and rDrop =
+		'N'
+	</select>
+
+	<!-- 내 QNA 목록 갯수 구하기 -->
+	<select id="totalCount" parameterType="String" resultType="int">
+		select sum(A) from 
+		(select count(*) A from qnaboard where memail=#{memail} and qnadrop != 'Y'
+		union
+		select count(*) A from qnareply where memail=#{memail} and qrdrop != 'Y')
+	</select>
+
+	<!-- 내 QnA 목록 불러오기 + 페이징 -->
+	<select id="myqnas" parameterType="Map" resultType="qnaBoard">
+		select * from 
+		(select rownum rnum, A.* from 
+		(select * from 
+		(select qnaboard.*,0 as qrid, null as qrreg, null as qrdrop from qnaboard
+		union
+		select qid, memail, null as qnatitle, null as qnacontent, null as qnaorifile,null as qnareg,null as qnadrop,
+		'Y' as qnayn,qrid,qrreg,qrdrop from qnareply) 
+		where memail=#{memail} and (qnadrop != 'Y' or qrdrop != 'Y') order by qid DESC, qrid asc) 
+		A)
+		where rnum between #{start} and #{end}
+	</select>
+	
+	<!-- QnA 등록 -->
+	<insert id="qnaInsert" parameterType="qnaBoard">
+		insert into qnaBoard values(QNA_SEQ.nextval,#{memail},#{qnatitle},#{qnacontent},#{qnaorifile,jdbcType=VARCHAR},SYSDATE,'N','N')
+	</insert>
+	
+	<!-- qid로 내 문의글 불러오기 -->
+	<select id="selectQna" parameterType="int"
+		resultType="qnaBoard">
+		select rownum rnum,qnaboard.* from  qnaboard where qid=#{qid}
+	</select>
+	
+	<!-- qid로 qrid값 알아내기 -->
+	<select id="findQrid" parameterType="int" resultType="int">
+		select qrid from qnareply where qid=#{qid} and qrid!=0
+	</select>
+	
+	<!-- qrid로 관리자 답변글 불러오기 -->
+	<select id="selectReply" parameterType="int"
+		resultType="qnaReply">
+		select rownum rnum,qnareply.* from  qnareply where qrid=#{qrid}
+	</select>
+	
+	<!-- qna 삭제 -->
+	<update id="qnaDelete" parameterType="int">
+		update qnaboard set qnadrop='Y' where qid=#{qid}
+	</update>
+	
+	<!-- qna 답변 삭제 -->
+	<update id="replyDelete" parameterType="int">
+		update qnareply set qrdrop='Y' where qid=#{qid}
+	</update>
+
+	<!-- 리뷰 삭제 -->
+	<update id="mypageDeleteReview" parameterType="String">
+		update review set
+		rdrop = 'Y' where rid = #{rid}
+	</update>
+
+	<!-- 배송상태 변경 ( 환불 요청 ) -->
+	<update id="refund" parameterType="String">
+		update orderdetail set
+		odstatus = 2 where odid = #{odid}
+	</update>
+
+	<!-- odid를 통해서 주문상세 구해오기 -->
+	<select id="myorderDetail" parameterType="String"
+		resultType="orderDetail">
+		select * from orderDetail where odid = #{odid}
+	</select>
+
+	<!-- oid를 통해서 주문상세 구해오기 -->
+	<select id="mypageOrderDetail" parameterType="String"
+		resultType="orderDetail">
+		select * from orderDetail where oid = #{oid}
+	</select>
+
+	<!-- 내 상품문의 ask 불러오기 (이메일을 통해) -->
+	<select id="productlist" parameterType="String" resultType="Map">
+		select *
+		from askboard
+		join Product ON askboard.pid = Product.pid
+		where askboard.mEmail = #{mEmail} AND askboard.askdrop = 'N'
+	</select>
+	
+	<!-- 내 report 구해오기 -->
+	<select id="listReport" parameterType="String" resultType="report">
+		select *
+		from report
+		where memail = #{memail}
+	</select>
+	
+	<!-- 내report pr키로 구해오기 -->
+	<select id="oneReport" parameterType="String" resultType="report">
+		select *
+		from report
+		where reportid = #{reportid}
+	</select>
+	
+</mapper>

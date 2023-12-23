@@ -1,0 +1,116 @@
+/* 바깥쪽 테이블 스타일 */
+.container_main {
+	width: 70%;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 50px;
+	border-radius: 10px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+	background-color: #f5f5f5; /* 밝은 회색 */
+}
+
+.container_left {
+	width: 60%;
+	box-sizing: border-box;
+	padding: 20px;
+	float: left;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 20px;
+}
+
+.container_right {
+	width: 40%;
+	box-sizing: border-box;
+	padding: 20px;
+	float: left;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+/* 내부 테이블 스타일 */
+.table_orders1, .table_orders2, .table_product, .table_point {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 5px;
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	background-color: white;
+}
+
+/* 첫 번째 td 선택 */
+.table_orders1 tr:first-child td:first-child, .table_orders2 tr:first-child td:first-child,
+	.table_product tr:first-child td:first-child, .table_point tr:first-child td:first-child
+	{
+	border: 5px;
+	padding: 1px;
+	text-align: left;
+	color: red !important; /* !important 추가 */
+	border-radius: 6px;
+	background-color: white;
+	font-weight: bold;
+}
+
+.table_orders1 td, .table_orders2 td, .table_product td, .table_point td
+	{
+	border: none;
+	padding: 1px;
+	text-align: left;
+	color: #333 !important; /* !important 추가 */
+	border-radius: 6px;
+	background-color: white;
+}
+.product_img{
+	width: 200px;
+	height: 100px;
+}
+
+.img_logo {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%; /* 부모 요소인 .container_right에 꽉 차도록 너비 설정 */
+}
+
+.img_logo img {
+	width: 100%; /* 이미지를 부모 요소(.img_logo)의 너비에 맞추기 */
+	height: auto; /* 비율 유지를 위해 높이 자동 설정 */
+}
+
+.table_orders1 td:hover, .table_orders1 th:hover, .table_orders2 td:hover,
+	.table_orders2 th:hover, .table_product td:hover, .table_product th:hover,
+	.table_point td:hover, .table_point th:hover {
+	color: #660066;
+	box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+	transform: scale(1.1);
+	transition: all 0.9s ease;
+}
+
+input[type="text"] {
+	border: none;
+	align: left;
+	width: 100%;
+	font-size: 20px;
+}
+
+button {
+	background-color: #4CAF50; /* 배경색 */
+	border: none;
+	color: white; /* 글자색 */
+	padding: 15px 32px; /* 내부 여백 */
+	text-align: center;
+	text-decoration: none;
+	display: inline-block; s
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border-radius: 8px; /* 모서리 둥글게 */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+button:hover {
+	background-color: #45a049; /* 호버 시 배경색 변경 */
+}

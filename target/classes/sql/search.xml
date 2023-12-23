@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.SearchDao">
+
+	<!-- 해당 검색어를 가진 상품의 갯수를 구해옴 -->
+	<select id="searchCount" parameterType="PagePgm" resultType="int">
+		select count(*) from product where 
+		pname like '%' || #{keyword} || '%'
+	</select>
+
+	<!-- 검색어를 통해 전체 검색 -->
+	<select id="allSearch" parameterType="PagePgm" resultType="product">
+		select * from 
+		(select rownum rnum, a.* 
+        	from (select * from product where pname like '%' || #{keyword} || '%' order by preg desc) a) 
+        	where rnum between #{startRow} and #{endRow}
+	</select>
+	
+</mapper>
+

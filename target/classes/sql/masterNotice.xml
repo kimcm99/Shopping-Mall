@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.MasterNoticeDao">
+
+	<!-- 공지사항 전체 글 수 -->
+	<select id="totalCount" resultType="int">
+		select count(*) from MasterNotice
+	</select>
+
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="noticeList" resultType="masterNotice" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnReg DESC
+		) NOTICE
+		)
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<!-- 새로운 공지글 등록 -->
+	<insert id="noticeInsert" parameterType="masterNotice">
+		insert into MasterNotice values(MASTERNOTICE_SEQ.nextval,#{mnTitle},#{mnContent},SYSDATE,#{mnOriFile,jdbcType=VARCHAR},#{mnReadCount})
+	</insert>
+	
+	<!-- 공지글 삭제 -->
+	<delete id="noticeDelete" parameterType="int">
+		delete from MasterNotice where mnId=#{mnId}
+	</delete>
+	
+	<!-- 상세 정보 구하기 -->
+	<select id="selectOne" parameterType="int" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnreg DESC
+		) NOTICE
+		)
+		WHERE mnId=#{mnId}
+		<!-- 여기서 가변형을 사용해야 함.  -->
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="updateMnReadCount" parameterType="int">
+		update MasterNotice set mnReadCount = mnReadCount + 1 where mnId=#{mnId}
+	</update>
+	
+	<!-- 공지글 수정 -->
+	<update id="masterNoticeUpdate" parameterType="masterNotice">
+		update MasterNotice set mnTitle=#{mnTitle},mnContent=#{mnContent},mnReg=SYSDATE,
+		mnOriFile=#{mnOriFile,jdbcType=VARCHAR},mnReadCount=#{mnReadCount} where mnId=#{mnId}
+	</update>
+	
+	
+	<!-- total구하기 -->
+	<select id="total" resultType="int">
+		SELECT COUNT(*) FROM masterNotice
+	</select>
+	<!-- ID기준으로 회원정보를 수정 -->
+	<update id="update" parameterType="member">
+		UPDATE MEMBER SET
+		mEmail=#{mEmail},
+		mPwd = #{mPwd}, mName = #{mName},
+		mPhone = #{mPhone}, mPost = #{mPost}, mAddress = #{mAddress},
+		mGrade = #{mGrade}, mReg = #{mReg}, mDrop = #{mDrop}
+		where mEmail = #{mEmail}
+	</update>
+	
+	<!-- 검색된 글 수 구하기 -->
+	<select id="noticeCount" parameterType="pagePgm" resultType="int">
+		SELECT COUNT(*) FROM masterNotice where 
+		<choose>
+		<when test="searchtype == 'mnTitle'">
+		mnTitle like '%'||#{keyword}||'%'
+		</when>
+		<when test="searchtype == 'mnContent'">
+		mnContent like '%'||#{keyword}||'%'
+		</when>
+		</choose>
+	</select>
+	
+	<!-- 페이징 처리된 검색 게시글 -->
+	<select id="noticeSearchList" resultType="masterNotice" parameterType="pagePgm">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice where 
+		<choose>
+		<when test="searchtype == 'mnTitle'">
+		mnTitle like '%' || #{keyword} || '%'
+		</when>
+		<when test="searchtype == 'mnContent'">
+		mnContent like '%' || #{keyword} || '%'
+		</when>
+		</choose>
+		ORDER BY mnreg DESC
+		) NOTICE
+		)
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectMove" parameterType="int" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnreg DESC
+		) NOTICE
+		)
+		WHERE RNUM=#{rnum}
+	</select>
+	
+	<!-- 검색된 정보 구하기 -->
+	<select id="searchOne" parameterType="map" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice where
+		<choose>
+		<when test="searchtype == 'mnTitle'">
+		mnTitle like '%' || #{keyword} || '%'
+		</when>
+		<when test="searchtype == 'mnContent'">
+		mnContent like '%' || #{keyword} || '%'
+		</when>
+		</choose>
+		ORDER BY mnreg DESC
+		) NOTICE
+		)
+		WHERE mnId=#{mnid}
+		<!-- 여기서 가변형을 사용해야 함.  -->
+	</select>
+	
+	<!-- 검색 상태에서 앞뒤로 이동 -->
+	<select id="searchMove" parameterType="map" resultType="masterNotice">
+	<!-- 게터 메소드를 통해 자동으로 검색된 정보가 DTO 객체에 입력됨 -->
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, NOTICE.*
+		FROM (
+		SELECT *
+		FROM MasterNotice
+		ORDER BY mnreg DESC
+		) NOTICE WHERE mntitle like '%' || #{keyword} || '%'
+		) where rnum=#{rnum}
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boss.dao.FreeBoardDao">
+
+<!-- 글등록 -->
+<insert id="insert" parameterType="freeboard">
+insert into FreeBoard
+(fId,mEmail,fTitle,fContent,fReadCount,fLike,fReg,fDrop,fImage)
+values
+(FreeBoard_seq.nextval,#{mEmail},#{fTitle},#{fContent},0,0,SYSDATE,'N',#{fImage, jdbcType=VARCHAR})
+</insert>
+
+<!-- 게시글 수 구하기 (검색기능 추가) -->
+<select id="listcount" parameterType="freeboard" resultType="int">
+		select count(*) from FreeBoard 
+		<where> <!--제목,내용,작성자명으로 검색하는 경우 -->
+			<if test="keyword != null and search !='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if> <!-- search=='subcon' :제목+내용으로 검색하는경우 -->
+			<if test="keyword != null and search=='subcon'">
+				fTitle like '%'||#{keyword}||'%' or
+				fContent like '%'||#{keyword}||'%'
+			</if>
+		</where>
+</select>
+
+<!-- 페이징 목록 구하기 (검색기능 추가) -->
+	<select id="selectList" parameterType="freeboard" resultType="freeboard">
+		select * from (select a.*,rowNum rn from (
+			select * from FreeBoard
+		<where> <!--제목,내용,작성자명으로 검색하는 경우 -->
+			<if test="keyword != null and search!='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if><!-- search=='subcon' :제목+내용으로 검색하는경우 -->
+			<if test="keyword != null and search=='subcon'">
+				fTitle like '%'||#{keyword}||'%' or
+				fContent like '%'||#{keyword}||'%'
+			</if>
+		</where>			
+			 order by fid desc) a )
+			where rn between #{startRow} and #{endRow}
+			 and fDrop = 'N' 
+	</select>
+
+
+<!--게시판 조회수 중가 -->
+<update id="readcount" parameterType="int">
+update FreeBoard set fReadCount=fReadCount+1
+where fId=#{fId}
+</update>
+
+<!-- 게시판 내용 가져오기 --> <!-- 조건에 fDrop='Y' 넣기 , parameterType map?..-->
+<select id="getDetail" parameterType="int" resultType="freeboard">
+select * from FreeBoard where fId=#{fId}
+</select>
+
+<!-- 글수정 -->
+<update id="update" parameterType="freeboard">
+update FreeBoard set fTitle=#{fTitle}, fContent=#{fContent},
+     fImage=#{fImage, jdbcType=VARCHAR} where fId=#{fId}
+</update>
+
+<!-- 글삭제 : 삭제시 Y  -->
+<update id="delete" parameterType="int">
+	update FreeBoard set fDrop='Y' where fId=#{fId}
+</update>
+
+<!-- 게시판 좋아요 갯수 설정  -->
+<update id="setLike" parameterType="freeboard">
+	update FreeBoard set fLike=#{fLike} where fId=#{fId}
+</update>
+
+</mapper>
